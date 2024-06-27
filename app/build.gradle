@@ -1,0 +1,50 @@
+plugins {
+    id 'application'
+    id 'java-library'
+    id 'maven-publish'
+}
+dependencies {
+    testImplementation libs.junit.jupiter
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation libs.guava
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'good_night.App'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+task sourceJar(type : Jar) {
+    from sourceSets.main.allJava
+}
+
+version = '1.0.0'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact sourceJar {
+            }
+        }
+    }
+    repositories {
+        maven {
+            url 'http:///repository/maven-releases/'
+            allowInsecureProtocol = true
+            credentials {
+                //username = System.getenv('NEXUS_USERNAME')  // CIで環境変数を設定する
+                //password = System.getenv('NEXUS_PASSWORD')  // CIで環境変数を設定する
+                username = "" // CIで環境変数を設定する
+                password = ""  // CIで環境変数を設定する
+            }
+        }
+    }
+}
