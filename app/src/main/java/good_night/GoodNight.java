@@ -3,12 +3,12 @@
  */
 package good_night;
 
-public class App {
+public class GoodNight {
     public String getGreeting() {
         return "Good Night";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        System.out.println(new GoodNight().getGreeting());
     }
 }
